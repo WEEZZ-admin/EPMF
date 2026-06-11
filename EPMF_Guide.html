@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPMF — Engineering Project Management &amp; Finance</title>
+<script>
+MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{
+  --bg:#f8f9fa;--card:#fff;--text:#212529;--muted:#6c757d;
+  --accent:#2563eb;--accent2:#0891b2;--border:#dee2e6;
+  --tag-bg:#e8f0fe;--tag-fg:#1a56db;
+  --warn-bg:#fff3cd;--warn-fg:#856404;--warn-border:#ffc107;
+  --good-bg:#d1fae5;--good-fg:#065f46;
+  --red:#dc2626;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+nav{position:sticky;top:0;z-index:100;background:var(--card);border-bottom:2px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;gap:0;backdrop-filter:blur(12px)}
+nav .brand{font-weight:800;font-size:1.05rem;white-space:nowrap;padding:0.8rem 0;color:var(--accent);letter-spacing:-0.01em}
+nav .tabs{display:flex;margin-left:2rem;gap:0}
+nav .tabs button{background:none;border:none;font-size:0.9rem;font-weight:600;padding:0.8rem 1.2rem;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;transition:all .15s;font-family:inherit}
+nav .tabs button:hover{color:var(--text)}
+nav .tabs button.active{color:var(--accent);border-bottom-color:var(--accent)}
+nav .right{margin-left:auto;display:flex;align-items:center;gap:0.8rem;font-size:0.82rem;color:var(--muted)}
+.container{max-width:960px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.tab-content{display:none}
+.tab-content.active{display:block}
+h1{font-size:2rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.02em}
+h2{font-size:1.5rem;font-weight:700;margin:2.5rem 0 1rem;padding-bottom:0.4rem;border-bottom:2px solid var(--border);color:var(--accent)}
+h3{font-size:1.2rem;font-weight:700;margin:1.8rem 0 0.7rem;color:var(--accent2)}
+h4{font-size:1.05rem;font-weight:700;margin:1.2rem 0 0.5rem;color:#374151}
+p{margin-bottom:0.8rem}
+a{color:var(--accent)}
+strong{color:#111827}
+em{color:var(--muted)}
+ul,ol{margin:0.5rem 0 1rem 1.5rem}
+li{margin-bottom:0.25rem}
+code{background:#f1f5f9;padding:0.15em 0.4em;border-radius:4px;font-size:0.9em;font-family:'JetBrains Mono','Fira Code',Consolas,monospace}
+pre{background:#1e293b;color:#e2e8f0;padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;margin:0.8rem 0;font-size:0.88rem;line-height:1.6}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.9rem}
+th,td{padding:0.55rem 0.75rem;text-align:left;border:1px solid var(--border)}
+th{background:#f1f5f9;font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.03em}
+tr:nth-child(even){background:#fafbfc}
+blockquote{background:var(--warn-bg);border-left:4px solid var(--warn-border);padding:0.6rem 1rem;margin:1rem 0;border-radius:0 6px 6px 0;color:var(--warn-fg);font-size:0.93rem}
+blockquote strong{color:var(--warn-fg)}
+hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
+.tag{display:inline-block;background:var(--tag-bg);color:var(--tag-fg);font-size:0.75rem;font-weight:700;padding:0.15em 0.55em;border-radius:4px;margin-right:0.3em}
+.fire{color:var(--red);font-weight:700}
+.formula-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.5rem;margin:1rem 0;text-align:center;overflow-x:auto}
+.formula-block .label{display:block;font-size:0.8rem;color:var(--muted);margin-bottom:0.3rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.meta{font-size:0.85rem;color:var(--muted);margin-bottom:2rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.5rem;margin:1rem 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.5rem;margin-bottom:2rem}
+.toc ol{padding-left:1.2rem}
+.toc li{margin-bottom:0.3rem}
+.print-only{display:none}
+@media print{
+  body{background:#fff;font-size:11pt}
+  nav{display:none}
+  .container{max-width:100%;padding:0}
+  .tab-content{display:block!important}
+  .tab-content+.tab-content{margin-top:1rem}
+  h2{page-break-before:always}
+  h2:first-of-type{page-break-before:avoid}
+  table{font-size:9pt}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">📘 EPMF Guide</span>
+  <div class="tabs">
+    <button class="active" onclick="switchTab('learning')">📖 Learning</button>
+    <button onclick="switchTab('revision')">📝 Revision</button>
+  </div>
+  <div class="right">UESTC 3031 &amp; UESTCHN 3012</div>
+</nav>
+
+<div class="container">
+
+<!-- ================================================================ -->
+<!-- LEARNING TAB                                                      -->
+<!-- ================================================================ -->
+<div id="tab-learning" class="tab-content active">
+
+<h1>Engineering Project Management &amp; Finance</h1>
+<p class="meta"><strong>完整学习指南</strong> · Dr. Amir Parnianifard · Based on PMBOK® Guide (PMI) · 17 Lectures</p>
+
+<div class="toc">
+<strong>📑 Contents</strong>
+<ol>
+  <li><a href="#l-pt1">Part 1: Project Management</a> — Lectures 1–4</li>
+  <li><a href="#l-pt2">Part 2: Design For Manufacturing</a> — Lectures 5–8</li>
+  <li><a href="#l-pt3">Part 3: Engineering Economics</a> — Lectures 9–13</li>
+  <li><a href="#l-pt4">Part 4: Company &amp; Strategy</a> — Lectures 14–16</li>
+  <li><a href="#l-app">Appendix: All Formulas</a></li>
+</ol>
+</div>
+
+<!-- PART 1 -->
+<h2 id="l-pt1">Part 1: Project Management（项目管理）</h2>
+
+<h3>1.1 What is a Project?（什么是项目）</h3>
+<p>A project（项目） is a <strong>temporary endeavor（临时性工作）</strong> undertaken to create a <strong>unique product, service, or result（独特的产品、服务或成果）</strong>. Temporary means a defined start and end — not necessarily short. It produces a verifiable deliverable and drives change to create business value.</p>
+
+<div class="card">
+<strong>Portfolio（项目组合） → Program（项目集） → Project（项目） → Operations（运营）</strong>
+<ul>
+  <li><strong>Portfolio（项目组合）:</strong> Collection of programs, projects, sub-portfolios managed to achieve strategic objectives</li>
+  <li><strong>Program（项目集）:</strong> Related projects managed in a coordinated way</li>
+  <li><strong>Project（项目）:</strong> Temporary, unique, defined scope</li>
+  <li><strong>Operations（运营）:</strong> Ongoing, repetitive activities</li>
+</ul>
+</div>
+
+<h4>Business Value（商业价值）</h4>
+<div class="grid2">
+<div>
+<table>
+<tr><th>Tangible（有形）</th></tr>
+<tr><td>Monetary Assets</td></tr>
+<tr><td>Stakeholder Equity</td></tr>
+<tr><td>Utility, Fixtures, Tools</td></tr>
+<tr><td>Market Share</td></tr>
+</table>
+</div>
+<div>
+<table>
+<tr><th>Intangible（无形）</th></tr>
+<tr><td>Goodwill, Brand recognition</td></tr>
+<tr><td>Public benefit, Trademarks</td></tr>
+<tr><td>Strategic alignment</td></tr>
+<tr><td>Reputation</td></tr>
+</table>
+</div>
+</div>
+
+<h3>1.2 Five Process Groups（五大过程组）</h3>
+<table>
+<tr><th>#</th><th>Process Group（过程组）</th><th>What Happens</th><th>Key Fact</th></tr>
+<tr><td>1</td><td><strong>Initiating（启动）</strong></td><td>Define new project; create Project Charter（项目章程）; authorize</td><td>Highest uncertainty, max stakeholder influence, lowest cost</td></tr>
+<tr><td>2</td><td><strong>Planning（规划）</strong></td><td>Establish scope, define objectives, develop PM plan</td><td>Progressive Elaboration（渐进明细） — plans evolve through feedback</td></tr>
+<tr><td>3</td><td><strong>Executing（执行）</strong></td><td>Complete work, produce deliverables（交付物）</td><td><span class="fire">Most resources consumed here</span></td></tr>
+<tr><td>4</td><td><strong>Monitoring &amp; Controlling（监控）</strong></td><td>Track, review, regulate; identify changes</td><td>Only approved changes are implemented</td></tr>
+<tr><td>5</td><td><strong>Closing（收尾）</strong></td><td>Formal completion, acceptance, lessons learned（经验教训）</td><td>Verify all processes completed</td></tr>
+</table>
+
+<h3>1.3 Ten Knowledge Areas（十大知识领域）</h3>
+<p>Integration · Scope · Schedule · Cost · Quality · Resource · Communications · Risk · Procurement · Stakeholder</p>
+
+<h3>1.4 Project Selection Methods</h3>
+<div class="formula-block">
+<div class="label">Present Value</div>
+$$PV = \frac{FV}{(1+r)^n}$$
+</div>
+<div class="formula-block">
+<div class="label">Benefit Cost Ratio</div>
+$$BCR = \frac{\text{Total Benefits}}{\text{Total Costs}}$$
+</div>
+<p><strong>BCR > 1</strong> → project worth pursuing. <strong>BCR ≤ 1</strong> → not worth it (unless intangible benefits exist). <strong>IRR</strong> — larger is better. <strong>NPV</strong> — positive indicates attractive project.</p>
+
+<h3>1.5 Role of the Project Manager（项目经理的角色）</h3>
+<ul>
+  <li>PMs spend <span class="fire">~90% of time communicating</span></li>
+  <li>PM does <strong>NOT</strong> authorize the business case — that is the Sponsor's（发起人） job</li>
+  <li>Standards are optional; regulations are mandatory</li>
+  <li><strong>Talent Triangle（人才三角）:</strong> Technical PM + Strategic &amp; Business Management + Leadership</li>
+</ul>
+
+<h4>Conscious Competence Matrix</h4>
+<table>
+<tr><th></th><th>Incompetent</th><th>Competent</th></tr>
+<tr><td><strong>Unconsciously</strong></td><td>Don't know what we don't know</td><td>Can do it without thinking</td></tr>
+<tr><td><strong>Consciously</strong></td><td>Awareness — know what we don't know</td><td>Can do it with help</td></tr>
+</table>
+<p>Path: Training → Awareness → Practice → Unconscious Competence</p>
+
+<h4>Types of Power（权力类型）</h4>
+<p><strong>Expert（专家权力）</strong> (knowledge) · <strong>Reward</strong> (give rewards) · <strong>Coercive</strong> (punish) · <strong>Positional</strong> (formal position). <strong>Leadership</strong> ≠ <strong>Management</strong> — leadership influences toward goals; management is process/task-oriented.</p>
+
+<hr>
+
+<h3>2.1 Scope Management — 6 Processes（范围管理-6个过程）</h3>
+<table>
+<tr><th>#</th><th>Process</th><th>Key Output</th><th>Key Tool</th></tr>
+<tr><td>1</td><td>Plan Scope Management</td><td>Scope mgmt plan</td><td>Expert Judgment, Meetings</td></tr>
+<tr><td>2</td><td>Collect Requirements</td><td>Requirements doc, RTM</td><td>Brainstorming, Interviews, Prototypes, Benchmarking</td></tr>
+<tr><td>3</td><td>Define Scope</td><td>Project scope statement</td><td>Product analysis</td></tr>
+<tr><td>4</td><td><strong>Create WBS（创建工作分解结构）</strong></td><td><strong>Scope baseline（范围基准）</strong></td><td><strong>Decomposition（分解）</strong></td></tr>
+<tr><td>5</td><td>Validate Scope</td><td>Accepted deliverables</td><td><strong>Inspection</strong></td></tr>
+<tr><td>6</td><td>Control Scope</td><td>Change requests</td><td>Variance analysis（偏差分析）, Trend analysis（趋势分析）</td></tr>
+</table>
+<blockquote><strong>🔥 WBS = Work Breakdown Structure（工作分解结构）</strong> (NOT "Statement"). WBS includes <strong>100%</strong> of project work — anything excluded is out of scope.</blockquote>
+
+<h3>2.2 Schedule Management — 6 Processes（进度管理-6个过程）</h3>
+<table>
+<tr><th>#</th><th>Process</th><th>Key Tool</th></tr>
+<tr><td>1</td><td>Plan Schedule Management</td><td>Meetings</td></tr>
+<tr><td>2</td><td>Define Activities</td><td>Decomposition, Rolling wave planning（滚动式规划）</td></tr>
+<tr><td>3</td><td>Sequence Activities</td><td><strong>PDM（前导图法） (4 dependency types)</strong>, Leads（提前） &amp; Lags（滞后）</td></tr>
+<tr><td>4</td><td>Estimate Activity Durations</td><td><strong>Three-point (PERT)（三点估算）</strong>, Analogous（类比估算）, Parametric（参数估算）, Bottom-up（自下而上估算）</td></tr>
+<tr><td>5</td><td>Develop Schedule</td><td><strong>CPM（关键路径法）</strong>, Resource optimization, Schedule compression</td></tr>
+<tr><td>6</td><td>Control Schedule</td><td>Variance analysis</td></tr>
+</table>
+
+<h4>PDM — Four Dependency Types（前导图法-四种依赖类型）</h4>
+<table>
+<tr><th>Type</th><th>Logic</th><th>Example</th></tr>
+<tr><td><strong>FS</strong> (most common)</td><td>Successor cannot start until predecessor finishes</td><td>Awards ceremony can't start until race finishes</td></tr>
+<tr><td><strong>FF</strong></td><td>Successor cannot finish until predecessor finishes</td><td>Inspection can't finish until painting finishes</td></tr>
+<tr><td><strong>SS</strong></td><td>Successor cannot start until predecessor starts</td><td>Painting begins after priming starts</td></tr>
+<tr><td><strong>SF</strong> (least common)</td><td>Successor cannot finish until predecessor starts</td><td>First guard shift can't finish until second starts</td></tr>
+</table>
+
+<h4>Leads and Lags（提前与滞后）</h4>
+<ul>
+  <li><strong>Lead（提前）:</strong> Successor <em>advances</em> relative to predecessor (FS – 2 weeks)</li>
+  <li><strong>Lag（滞后）:</strong> Successor is <em>delayed</em> (SS + 15 days)</li>
+</ul>
+
+<h4>PERT Three-Point Estimating（PERT三点估算）</h4>
+<div class="formula-block">
+<div class="label">Triangular Distribution</div>
+$$E = \frac{O + M + P}{3}$$
+</div>
+<div class="formula-block">
+<div class="label">Beta Distribution (Traditional PERT)</div>
+$$E = \frac{O + 4M + P}{6}$$
+</div>
+<div class="formula-block">
+<div class="label">Standard Deviation &amp; Variance</div>
+$$\sigma = \frac{P - O}{6} \qquad \text{Variance} = \sigma^2$$
+</div>
+<p>O = Optimistic, M = Most Likely, P = Pessimistic</p>
+
+<h4>Critical Path Method (CPM)（关键路径法）</h4>
+<p>The <strong>critical path（关键路径）</strong> is the longest path determining the minimum project duration. Calculated via forward pass and backward pass:</p>
+<div class="formula-block">
+<div class="label">Forward Pass</div>
+$$EF = ES + D$$
+</div>
+<div class="formula-block">
+<div class="label">Total Float (Slack)（总浮动时间）</div>
+$$\text{Total Float} = LF - EF = LS - ES$$
+</div>
+<p>Activities on the critical path have <strong>zero total float</strong>.</p>
+
+<h4>Schedule Compression（进度压缩）</h4>
+<table>
+<tr><th>Method</th><th>How</th><th>Cost</th></tr>
+<tr><td><strong>Crashing（赶工）</strong></td><td>Add resources to critical path activities</td><td>Increases cost</td></tr>
+<tr><td><strong>Fast Tracking（快速跟进）</strong></td><td>Run sequential activities in parallel</td><td>Increases risk</td></tr>
+</table>
+<p>Both methods do <strong>NOT</strong> reduce project scope.</p>
+
+<hr>
+
+<h3>3.1 Cost Management — 4 Processes（成本管理-4个过程）</h3>
+<table>
+<tr><th>#</th><th>Process</th><th>Key Output</th></tr>
+<tr><td>1</td><td>Plan Cost Management</td><td>Cost mgmt plan</td></tr>
+<tr><td>2</td><td>Estimate Costs</td><td>ROM（粗略量级估算） (–25%/+75%) or Definitive（确定性估算） (–5%/+10%)</td></tr>
+<tr><td>3</td><td><strong>Determine Budget</strong></td><td><strong>Cost baseline（成本基准）</strong> (includes contingency（应急储备）, NOT mgmt reserve（管理储备）)</td></tr>
+<tr><td>4</td><td>Control Costs</td><td>EVA metrics</td></tr>
+</table>
+
+<h4>Earned Value Analysis (EVA)（挣值分析）</h4>
+<table>
+<tr><th>Dimension</th><th>Definition</th></tr>
+<tr><td><strong>PV（计划价值）</strong> (Planned Value)</td><td>Authorized budget for scheduled work</td></tr>
+<tr><td><strong>EV（挣值）</strong> (Earned Value)</td><td>Budget for work actually completed</td></tr>
+<tr><td><strong>AC（实际成本）</strong> (Actual Cost)</td><td>Real money spent</td></tr>
+<tr><td><strong>BAC（完工预算）</strong></td><td>Total project budget</td></tr>
+</table>
+
+<div class="grid2">
+<div class="formula-block">
+<div class="label">Schedule Variance（进度偏差）</div>
+$$SV = EV - PV$$
+<p style="font-size:0.85rem">+ve = ahead; –ve = behind</p>
+</div>
+<div class="formula-block">
+<div class="label">Cost Variance（成本偏差）</div>
+$$CV = EV - AC$$
+<p style="font-size:0.85rem">+ve = under budget; –ve = over budget</p>
+</div>
+<div class="formula-block">
+<div class="label">Schedule Performance Index（进度绩效指数）</div>
+$$SPI = \frac{EV}{PV}$$
+<p style="font-size:0.85rem">&gt;1 = ahead; &lt;1 = behind</p>
+</div>
+<div class="formula-block">
+<div class="label">Cost Performance Index（成本绩效指数）</div>
+$$CPI = \frac{EV}{AC}$$
+<p style="font-size:0.85rem">&gt;1 = under budget; &lt;1 = over budget</p>
+</div>
+</div>
+
+<h4>EVA Example</h4>
+<p>BAC = $1,000, Planned 50%, Actual 40%, AC = $550</p>
+<table>
+<tr><td>PV = 50% × $1,000 = <strong>$500</strong></td><td>EV = 40% × $1,000 = <strong>$400</strong></td><td>AC = <strong>$550</strong></td></tr>
+<tr><td>SV = 400 – 500 = <strong>–$100</strong> (behind)</td><td>CV = 400 – 550 = <strong>–$150</strong> (over budget)</td><td></td></tr>
+<tr><td>SPI = 400/500 = <strong>0.8</strong> (behind)</td><td>CPI = 400/550 ≈ <strong>0.73</strong> (over budget)</td><td></td></tr>
+</table>
+<blockquote><strong>🔥 Negative CV is often difficult for the project to recover.</strong></blockquote>
+
+<h3>3.2 Resource Management — 6 Processes（资源管理-6个过程）</h3>
+<table>
+<tr><th>#</th><th>Process</th><th>Key Concept</th></tr>
+<tr><td>1</td><td>Plan Resource Management</td><td>RACI chart（责任分配矩阵）, OBS, RBS</td></tr>
+<tr><td>2</td><td>Estimate Activity Resources</td><td>Bottom-up, Analogous</td></tr>
+<tr><td>3</td><td>Acquire Resources</td><td>Pre-assignment, Virtual teams</td></tr>
+<tr><td>4</td><td><strong>Develop Team</strong></td><td><strong>Tuckman's Model（塔克曼模型）</strong>, Training, Rewards</td></tr>
+<tr><td>5</td><td>Manage Team</td><td>Conflict management</td></tr>
+<tr><td>6</td><td>Control Resources</td><td>Monitor planned vs actual use</td></tr>
+</table>
+
+<h4>RACI Matrix（责任分配矩阵）</h4>
+<table>
+<tr><th>Role</th><th>Meaning</th></tr>
+<tr><td><strong>R</strong>esponsible（执行）</td><td>Does the work</td></tr>
+<tr><td><strong>A</strong>ccountable（负责）</td><td>Final decision / ultimate ownership (<span class="fire">only ONE per task</span>)</td></tr>
+<tr><td><strong>C</strong>onsulted（咨询）</td><td>Consulted before decision</td></tr>
+<tr><td><strong>I</strong>nformed（知情）</td><td>Informed after decision</td></tr>
+</table>
+
+<h4>Tuckman's Team Development Model（塔克曼团队发展模型）</h4>
+<table>
+<tr><th>Stage</th><th>Description</th></tr>
+<tr><td>1. <strong>Forming（形成）</strong></td><td>Team comes together; polite, uncertain; look to leader</td></tr>
+<tr><td>2. <strong>Storming（震荡）</strong></td><td><span class="fire">Conflicts arise — critical phase where teams fail or succeed</span></td></tr>
+<tr><td>3. <strong>Norming（规范）</strong></td><td>Roles become clearer; trust develops; collaboration style established</td></tr>
+<tr><td>4. <strong>Performing（执行）</strong></td><td>High-functioning, self-directed; leader steps back</td></tr>
+<tr><td>5. <strong>Adjourning（解散）</strong></td><td>Project ends; celebrate or reflect; members move on</td></tr>
+</table>
+
+<h4>Conflict Management（冲突管理） — 5 Techniques（5种技术）</h4>
+<table>
+<tr><th>Technique</th><th>Description</th><th>When to Use</th></tr>
+<tr><td><strong>Avoiding（回避）</strong></td><td>Ignore or postpone</td><td>Minor conflict; insufficient time</td></tr>
+<tr><td><strong>Accommodating（迁就）</strong></td><td>One party gives in</td><td>Issue not important to you</td></tr>
+<tr><td><strong>Compromising（妥协）</strong></td><td>Both give up something</td><td>Both sides valid; need livable solution</td></tr>
+<tr><td><strong>Competing（竞争）</strong></td><td>One party pushes solution</td><td>Quick decision needed</td></tr>
+<tr><td><strong>Collaborating（合作）</strong></td><td>Work together for mutual benefit</td><td><span class="fire">BEST for important conflicts</span></td></tr>
+</table>
+
+<hr>
+
+<h3>4.1 Communications Management — 3 Processes</h3>
+
+<h4>Communication Channels Formula</h4>
+<div class="formula-block">
+<div class="label">Communication Channels</div>
+$$\text{Channels} = \frac{n(n-1)}{2}$$
+</div>
+<p>Example: 6 team members + 1 PM = 7 → 7×6/2 = <strong>21 channels</strong></p>
+
+<h4>Three Communication Methods（三种沟通方法）</h4>
+<table>
+<tr><th>Method</th><th>Nature</th><th>Examples</th></tr>
+<tr><td><strong>Interactive</strong></td><td>Two-way, real-time</td><td>Meetings, calls, video, IM</td></tr>
+<tr><td><strong>Push</strong></td><td>Sent; no guarantee of receipt</td><td>Letters, memos, email, reports</td></tr>
+<tr><td><strong>Pull</strong></td><td>Recipients access on their own</td><td>Web portals, intranet, e-learning</td></tr>
+</table>
+<blockquote><strong>🔥 Pull communication is best for distributing information to many efficiently.</strong></blockquote>
+
+<h4>Communication Models（沟通模型）</h4>
+<ul>
+  <li><strong>Basic（基本模型）:</strong> Encode → Transmit → Decode (ensures delivery, not understanding)</li>
+  <li><strong>Interactive（互动模型）:</strong> Basic + <strong>Acknowledge</strong> + <strong>Feedback/Response</strong> (ensures understanding)</li>
+</ul>
+
+<table>
+<tr><th>#</th><th>Process</th><th>Key Point</th></tr>
+<tr><td>1</td><td>Plan Communications</td><td>Based on stakeholder information needs</td></tr>
+<tr><td>2</td><td><strong>Manage Communications</strong></td><td><strong>Project reporting</strong> is a tool/technique here</td></tr>
+<tr><td>3</td><td>Monitor Communications</td><td>Ensure optimal information flow</td></tr>
+</table>
+
+<h3>4.2 Risk Management — 7 Processes</h3>
+<table>
+<tr><th>#</th><th>Process</th><th>Key Tool</th></tr>
+<tr><td>1</td><td>Plan Risk Management</td><td>Risk mgmt plan, RBS</td></tr>
+<tr><td>2</td><td><strong>Identify Risks</strong></td><td><strong>SWOT</strong>, Root cause analysis, Brainstorming, Checklists, Interviews</td></tr>
+<tr><td>3</td><td><strong>Perform Qualitative Analysis</strong></td><td><strong>Probability &amp; Impact Matrix</strong>, Bubble charts</td></tr>
+<tr><td>4</td><td>Perform Quantitative Analysis</td><td>Monte Carlo, Decision trees, <strong>EMV</strong>, Tornado diagram</td></tr>
+<tr><td>5</td><td>Plan Risk Responses</td><td>Strategies for threats &amp; opportunities</td></tr>
+<tr><td>6</td><td>Implement Risk Responses</td><td>Execute agreed-upon plans</td></tr>
+<tr><td>7</td><td>Monitor Risks</td><td>Audits, Data analysis</td></tr>
+</table>
+<blockquote><strong>🔥 Quantitative analysis is NOT required for every project.</strong><br>
+<strong>🔥 After Identify Risks → next step is Qualitative (not Quantitative!).</strong></blockquote>
+
+<h4>Expected Monetary Value (EMV)</h4>
+<div class="formula-block">
+<div class="label">EMV</div>
+$$EMV = \sum (Probability_i \times Impact_i)$$
+</div>
+<p><strong>Example:</strong> 80% × 2,000 + 15% × 3,500 + 5% × 8,200 = 1,600 + 525 + 410 = <strong>2,535 CHF</strong></p>
+
+<h4>Risk Response Strategies（风险应对策略）</h4>
+<div class="grid2">
+<div>
+<table>
+<tr><th colspan="2">For Threats（威胁） (Negative)</th></tr>
+<tr><td><strong>Escalate（上报）</strong></td><td>Outside project scope → program/portfolio level</td></tr>
+<tr><td><strong>Avoid（规避）</strong></td><td>Eliminate the threat entirely</td></tr>
+<tr><td><strong>Transfer（转移）</strong></td><td>Shift impact to third party (insurance, outsourcing)</td></tr>
+<tr><td><strong>Mitigate（减轻）</strong></td><td>Reduce probability and/or impact</td></tr>
+<tr><td><strong>Accept（接受）</strong></td><td>No proactive action (active = reserve; passive = do nothing)</td></tr>
+</table>
+</div>
+<div>
+<table>
+<tr><th colspan="2">For Opportunities（机会） (Positive)</th></tr>
+<tr><td><strong>Escalate（上报）</strong></td><td>Outside project scope → escalate</td></tr>
+<tr><td><strong>Exploit（开拓）</strong></td><td>Ensure opportunity is realized</td></tr>
+<tr><td><strong>Share（分享）</strong></td><td>Partner to capture the opportunity</td></tr>
+<tr><td><strong>Enhance（提高）</strong></td><td>Increase probability and/or impact</td></tr>
+<tr><td><strong>Accept（接受）</strong></td><td>Take advantage if it occurs; don't actively pursue</td></tr>
+</table>
+</div>
+</div><!-- PART 2 -->
+<h2 id="l-pt2">Part 2: Design For Manufacturing（面向制造的设计）</h2>
+
+<h3>5.1 DFM Introduction（DFM简介）</h3>
+<p><strong>Design For Manufacturing (DFM)（面向制造的设计）:</strong> Designing components for ease of manufacturing at lower cost. <span class="fire">70%–80% of production costs are determined by design decisions.</span> DFM is most effective at the <strong>initial design stage</strong>.</p>
+
+<h4>Six Principles of DFM（DFM六大原则）</h4>
+<table>
+<tr><th>#</th><th>Principle</th><th>Description</th></tr>
+<tr><td>1</td><td><strong>Simplicity（简单性）</strong></td><td>Few parts, straightforward shapes</td></tr>
+<tr><td>2</td><td><strong>Standardization（标准化）</strong></td><td>Use standard components and processes</td></tr>
+<tr><td>3</td><td><strong>Tolerance（公差）</strong></td><td>Balance precision needs with manufacturing cost</td></tr>
+<tr><td>4</td><td><strong>Material Selection（材料选择）</strong></td><td>Consider strength, durability, manufacturability</td></tr>
+<tr><td>5</td><td><strong>Automation（自动化）</strong></td><td>Improve efficiency, reduce labor costs</td></tr>
+<tr><td>6</td><td><strong>Process Integration（流程整合）</strong></td><td>Close collaboration: design + manufacturing + QC</td></tr>
+</table>
+
+<h4>Benefits of DFM（DFM的好处）</h4>
+<p>Lower manufacturing costs · Improved efficiency · Higher quality · Streamlined development · Better supply chain · Enhanced competitiveness · Regulatory compliance</p>
+
+<h3>5.2 Design for Sustainability (D4S)（可持续性设计）</h3>
+<p><strong>Three Pillars（三大支柱）:</strong> <span class="fire">Economic</span> + <span class="fire">Environmental</span> + <span class="fire">Social</span> (NOT Technological!)</p>
+
+<h4>Linear Economy（线性经济） vs Circular Economy（循环经济）</h4>
+<table>
+<tr><th>Linear Economy（线性经济）</th><th>Circular Economy</th></tr>
+<tr><td>Take → Make → Dispose</td><td>Reintroduce used parts as raw materials</td></tr>
+<tr><td>Highly unsustainable</td><td>Resource-efficient; reduces pollution</td></tr>
+</table>
+<p><strong>4Rs（4R原则）:</strong> Reduce（减少） · Reuse（重用） · Repair（修复） · Recycle（回收） (<span class="fire">NOT Replace!</span>)</p>
+
+<h4>Seven Sustainability Principles（七大可持续性原则）</h4>
+<ol>
+  <li><strong>Dematerialization（去物质化）</strong> — reduce material/energy throughput (miniaturization)</li>
+  <li><strong>Modular Design（模块化设计）</strong> — reusable components across products</li>
+  <li><strong>Prefer Renewable Energy（偏好可再生能源）</strong> — wind, solar, hydroelectricity</li>
+  <li><strong>Product-Service Systems（产品服务系统）</strong> — lease instead of sell (e.g., IBM cloud)</li>
+  <li><strong>Design for Longevity（长寿设计）</strong> — maximize usable life</li>
+  <li><strong>Limit Long-Distance Outsourcing（限制长途外包）</strong> — prefer local suppliers</li>
+  <li><strong>Invest in Simulation（投资仿真）</strong> — replace trial-and-error with simulation</li>
+</ol>
+<blockquote><strong>🔥 80% of a product's negative environmental impact is determined at the design stage.</strong> (EU Commission)</blockquote>
+
+<hr>
+
+<h3>6.1 Quality Control（质量控制） vs Quality Assurance（质量保证）</h3>
+<table>
+<tr><th></th><th>QA (Quality Assurance)</th><th>QC (Quality Control)</th></tr>
+<tr><td><strong>Nature（性质）</strong></td><td>Proactive（主动）</td><td>Reactive</td></tr>
+<tr><td><strong>Focus</strong></td><td>Defect <strong>prevention（预防）</strong> by refining processes</td><td><strong>Identifying defects（识别缺陷）</strong> in completed products</td></tr>
+</table>
+
+<h3>6.2 Seven Basic QC Tools (7-QC Tools)（七大QC工具）</h3>
+<table>
+<tr><th>#</th><th>Tool</th><th>Purpose</th></tr>
+<tr><td>1</td><td><strong>Flowchart（流程图）</strong></td><td>Show sequential steps and decisions</td></tr>
+<tr><td>2</td><td><strong>Check Sheet（检查表）</strong></td><td>Structured data collection &amp; analysis</td></tr>
+<tr><td>3</td><td><strong>Cause-and-Effect Diagram（因果图/鱼骨图）</strong> (Fishbone/Ishikawa)</td><td>Organize possible causes for a problem</td></tr>
+<tr><td>4</td><td><strong>Pareto Chart（帕累托图）</strong></td><td>Bar chart sorted descending; <strong>80/20 rule</strong></td></tr>
+<tr><td>5</td><td><strong>Control Chart（控制图）</strong> (Shewhart)</td><td>Study process changes over time; determine stability</td></tr>
+<tr><td>6</td><td><strong>Histogram（直方图）</strong></td><td>Understand variation at a glance</td></tr>
+<tr><td>7</td><td><strong>Scatter Diagram（散点图）</strong></td><td>Look for relationships between paired variables</td></tr>
+</table>
+<blockquote><strong>🔥 Linear Programming is NOT one of the 7-QC tools.</strong></blockquote>
+
+<h4>Control Chart Formulas（控制图公式）</h4>
+<div class="formula-block">
+<div class="label">Mean &amp; Standard Deviation</div>
+$$\bar{X} = \frac{\sum_{i=1}^{N} x_i}{N} \qquad \hat{\sigma} = \sqrt{\frac{\sum(x_i - \bar{X})^2}{N}}$$
+</div>
+<div class="formula-block">
+<div class="label">Control Limits</div>
+$$UCL = \bar{X} + A\hat{\sigma} \qquad LCL = \bar{X} - A\hat{\sigma}$$
+<p style="font-size:0.85rem">A=1 → 68.26%; A=2 → 95.44%; A=3 → 99.73%</p>
+</div>
+
+<h3>6.3 Cost of Quality (COQ)（质量成本）</h3>
+<table>
+<tr><th>Category</th><th>Description</th><th>Examples</th></tr>
+<tr><td><strong>Prevention（预防成本）</strong></td><td>Avoid poor quality</td><td>Training, design reviews, equipment upgrades, supplier selection</td></tr>
+<tr><td><strong>Appraisal（鉴定成本）</strong></td><td>Measure/inspect to ensure conformance</td><td>Testing, inspection, process audits, calibration</td></tr>
+<tr><td><strong>Internal Failure（内部失败成本）</strong></td><td>Defects found <strong>before</strong> customer receives</td><td>Scrap, rework, design changes, re-inspection</td></tr>
+<tr><td><strong>External Failure（外部失败成本）</strong></td><td>Defects found <strong>after</strong> customer receives</td><td>Returns, recalls, warranty, <strong>lost customers</strong></td></tr>
+</table>
+<blockquote><strong>🔥 External failure costs（外部失败成本） are the WORST type.</strong> Spending more on Prevention + Appraisal typically reduces Internal + External failure costs.</blockquote>
+
+<hr>
+
+<h3>7.1 Robust Design（稳健设计） (Taguchi Method)（田口方法）</h3>
+<p><strong>Core idea:</strong> Increase quality by <strong>decreasing the effects of variation without eliminating the causes</strong> — since causes are often too difficult or expensive to control.</p>
+<p>Developed by <strong>Genichi Taguchi</strong> (1950s–1960s).</p>
+
+<h4>Quality Loss Function（质量损失函数）</h4>
+
+<h5>Traditional Step Function（传统阶跃函数）</h5>
+<p>L(y) = 0 if |y – m| &lt; Δ₀; L(y) = A₀ otherwise — <em>any value within tolerance is equally good</em>.</p>
+
+<h5>Taguchi Quadratic Loss Function（田口二次损失函数）</h5>
+<div class="formula-block">
+<div class="label">Taguchi Loss Function</div>
+$$L(y) = k(y - m)^2 \qquad \text{where } k = \frac{A_0}{\Delta_0^2}$$
+</div>
+<p>At y = m, loss = 0 (best). Loss increases slowly near m, then accelerates.</p>
+
+<h4>Average Quality Loss（平均质量损失）</h4>
+<div class="formula-block">
+<div class="label">For large n (nominal-the-best)</div>
+$$Q = k[(\mu - m)^2 + \sigma^2]$$
+</div>
+
+<h4>Three Types of Quality Characteristics（三类质量特性）</h4>
+<table>
+<tr><th>Type</th><th>Ideal Target</th><th>Examples</th></tr>
+<tr><td><strong>Nominal-the-best（望目特性）</strong></td><td>Specific target value</td><td>Operating temp, bandwidth, voltage</td></tr>
+<tr><td><strong>Smaller-the-better（望小特性）</strong></td><td>Zero</td><td>Response time, leakage current, pollution</td></tr>
+<tr><td><strong>Larger-the-better（望大特性）</strong></td><td>Infinity</td><td>Efficiency, accuracy, power amplification</td></tr>
+</table>
+<blockquote><strong>🔥 "Target-the-zero" is NOT a Taguchi loss function type.</strong></blockquote>
+
+<h4>P-Diagram（参数图） — Three Parameter Classes（三类参数）</h4>
+<ol>
+  <li><strong>Signal Factors（信号因子）:</strong> Direct impact on performance (voltage, frequency)</li>
+  <li><strong>Control Factors（控制因子）:</strong> Designer can specify optimally (process parameters, material)</li>
+  <li><strong>Noise Factors（噪声因子）:</strong> <strong>Cannot be controlled</strong> or too expensive (temperature, humidity, tolerances)</li>
+</ol>
+
+<h4>Taguchi Parameter Design（田口参数设计） — 5 Steps（5步）</h4>
+<ol><li>Brainstorming</li><li>Identify design parameters &amp; noise factors</li><li>Construct DOE</li><li>Perform experiments</li><li>Analyze results</li></ol>
+
+<h4>Design of Experiments (DOE)（实验设计）</h4>
+<div class="formula-block">
+<div class="label">Full Factorial</div>
+$$\text{\# Experiments} = (\text{\# levels})^{\text{\# factors}}$$
+</div>
+<p><strong>Orthogonal Arrays (OA)（正交数组）:</strong> L₄(2³) = 4 experiments, 2 levels, 3 variables. L₉(3⁴) = 9 experiments, 3 levels, 4 variables.</p>
+
+<h4>Crossed Arrays（交叉数组） (Inner（内数组） &amp; Outer（外数组）)</h4>
+<ul>
+  <li><strong>Inner Array（内数组）:</strong> Control factor matrix</li>
+  <li><strong>Outer Array（外数组）:</strong> Noise factor matrix</li>
+  <li>For each inner row, run all outer combinations → compute μ, σ², Q = k[(μ−m)²+σ²]</li>
+  <li>Select row with <strong>smallest loss function</strong></li>
+</ul>
+
+<hr>
+
+<h3>8.1 Six Sigma（六西格玛）</h3>
+<p>At Six Sigma level: <strong>3.4 defects per million opportunities (DPMO)</strong>. Goal: as perfect as practically possible.</p>
+<p><strong>Success cases:</strong> GE (+$2Bn, 1999), Motorola ($15Bn saved), AlliedSignal ($1.5Bn saved).</p>
+
+<h4>DMAIC — Five Phases（DMAIC五阶段）</h4>
+<table>
+<tr><th>Phase</th><th>Activity</th></tr>
+<tr><td><strong>D</strong>efine</td><td>Define project goals and customer deliverables</td></tr>
+<tr><td><strong>M</strong>easure</td><td>Measure process to determine current performance</td></tr>
+<tr><td><strong>A</strong>nalyze</td><td>Analyze and determine root cause(s) of defects</td></tr>
+<tr><td><strong>I</strong>mprove</td><td>Improve the process by eliminating defects</td></tr>
+<tr><td><strong>C</strong>ontrol</td><td>Monitor improvements to ensure sustainability</td></tr>
+</table>
+<blockquote><strong>🔥 "Calibrate" is NOT a DMAIC phase.</strong></blockquote>
+
+<h4>Key Six Sigma Roles（六西格玛关键角色）</h4>
+<p>Executive Leadership → Champions → Master Black Belts → Black Belts (full-time) → Green Belts (part-time)</p>
+
+<h4>CTQ (Critical-to-Quality)（关键质量特性）</h4>
+<p>Elements of a process that <strong>significantly affect the output</strong>. Identifying CTQ is key to reducing costs and enhancing quality.</p>
+
+<h3>8.2 Process Capability Indices（过程能力指数）</h3>
+
+<div class="formula-block">
+<div class="label">Cp — Potential Capability（潜在能力） (does NOT account for centering)</div>
+$$Cp = \frac{USL - LSL}{6\sigma}$$
+</div>
+<div class="formula-block">
+<div class="label">Cpk — Actual Capability（实际能力） (accounts for spread AND centering)</div>
+$$Cpk = \min\left(\frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma}\right)$$
+</div>
+<p><strong>Requirements:</strong> n ≥ 50, normally distributed data.</p>
+
+<h4>Cpk Risk Assessment（Cpk风险评估）</h4>
+<table>
+<tr><th>Cpk Value</th><th>Risk</th><th>Interpretation</th></tr>
+<tr><td>&lt; 1.00</td><td>High</td><td>Process <strong>not capable</strong></td></tr>
+<tr><td>1.00 – 1.33</td><td>Moderate</td><td>Improvement needed</td></tr>
+<tr><td>1.33 – 1.67</td><td>Low</td><td>Process <strong>capable</strong>, room for improvement</td></tr>
+<tr><td>≥ 1.67</td><td>Minimal</td><td>Process <strong>highly capable</strong></td></tr>
+</table>
+<blockquote><strong>🔥 Aim for Cpk ≥ 2.00</strong> — uses only 50% of spec width, significantly reducing defect risk.</blockquote>
+
+<h4>Example</h4>
+<p>Resistor: target 10Ω, ±1Ω (USL=11, LSL=9). μ = 10.1Ω, σ = 0.3Ω.</p>
+<ul>
+  <li>Cp = 2 / (6×0.3) = <strong>1.11</strong></li>
+  <li>Upper: (11–10.1) / (3×0.3) = <strong>1.00</strong></li>
+  <li>Lower: (10.1–9) / (3×0.3) = <strong>1.22</strong></li>
+  <li>Cpk = min(1.00, 1.22) = <strong>1.00</strong> → Moderate risk</li>
+</ul>
+
+<!-- PART 3 -->
+<h2 id="l-pt3">Part 3: Engineering Economics（工程经济学）</h2>
+
+<h3>9.1 Financial Statements（财务报表）</h3>
+
+<h4>Balance Sheet（资产负债表）</h4>
+<p>Snapshot at a <strong>specific point in time</strong>. Assets = Liabilities + Owners' Equity.</p>
+
+<h4>Income Statement (P&amp;L)（损益表） — Most useful to engineers</h4>
+<div class="card" style="font-family:monospace;white-space:pre;line-height:1.8">
+Sales
+– Cost of Sales
+= <strong>Gross Profit</strong>
+– Other Expenses
+= <strong>EBITDA</strong> (Operating Profit)
+– ITDA (Interest, Taxes, Depreciation, Amortization)
+= <strong>Net Income</strong>
+</div>
+
+<table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td><strong>Gross Profit（毛利润）</strong></td><td>Sales – Cost of Goods Sold — first health indicator</td></tr>
+<tr><td><strong>EBITDA（息税折旧摊销前利润）</strong></td><td>Earnings Before Interest, Taxes, Depreciation, Amortization</td></tr>
+<tr><td><strong>Depreciation（折旧）</strong></td><td>Spread equipment cost over useful life (engineers can influence by reducing CapEx)</td></tr>
+<tr><td><strong>Amortization（摊销）</strong></td><td>Same as depreciation but for lump sums / intangible assets</td></tr>
+</table>
+
+<h4>Statement of Cash Flows（现金流量表）</h4>
+<p>Operating · Investing · Financing activities. <span class="fire">If Cash Outflows &gt; Cash Inflows, the company cannot trade.</span> "Cash Flow is THE life blood."</p>
+
+<hr>
+
+<h3>10.1 Make or Buy Decisions（自制或外购决策）</h3>
+<p><strong>Only RELEVANT COSTS（相关成本） matter</strong> — costs that differ between alternatives. Fixed costs that cannot be avoided if buying externally are <strong>irrelevant</strong>.</p>
+
+<h4>Exitel Semiconductor Example（Exitel半导体案例）</h4>
+<table>
+<tr><th>Cost Component</th><th>Per Unit</th></tr>
+<tr><td>Direct Material</td><td>$9.00</td></tr>
+<tr><td>Direct Labour</td><td>$5.00</td></tr>
+<tr><td>Variable Overhead</td><td>$1.00</td></tr>
+<tr><td>Fixed Overhead (NOT avoidable)</td><td>$13.00</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>$28.00</strong></td></tr>
+</table>
+<p>Supplier offers $25/chip. Relevant costs avoided = $15.00. <strong>Decision: Should NOT buy</strong> — paying $25 saves only $15.</p>
+
+<h4><h4>Opportunity Cost（机会成本） Changes Everything</h4></h4>
+<p>If idle facilities can be leased for $250K/year:</p>
+<ul>
+  <li>Make: $560K</li>
+  <li>Buy: $760K</li>
+  <li>Buy &amp; Lease: $760K – $250K = <strong>$510K</strong> → Best option!</li>
+</ul>
+
+<blockquote><strong>🔥 Non-financial factors:</strong> Quality, delivery reliability, strategic control, core competency protection, supplier relationship risk.</blockquote>
+
+<hr>
+
+<h3>11.1 Break-Even Analysis（盈亏平衡分析）</h3>
+
+<div class="formula-block">
+<div class="label">Contribution per Unit（单位贡献）</div>
+$$\text{Contribution} = SP - VC$$
+</div>
+<div class="formula-block">
+<div class="label">Break-Even Point（盈亏平衡点） (units)</div>
+$$Q = \frac{FC}{SP - VC} = \frac{F}{\text{Contribution}}$$
+</div>
+<div class="formula-block">
+<div class="label">Target Profit Output（目标利润产量）</div>
+$$Q = \frac{FC + \text{Target Profit}}{SP - VC}$$
+</div>
+<div class="formula-block">
+<div class="label">Margin of Safety（安全边际）</div>
+$$\text{Margin of Safety} = \text{Current Output} - \text{BEP Output}$$
+</div>
+<div class="formula-block">
+<div class="label">Break-Even Revenue（盈亏平衡收入） (Service Businesses)</div>
+$$\text{BE Revenue} = \frac{FC}{1 - (VC / SP)}$$
+</div>
+
+<h4>Three Methods（三种计算方法）</h4>
+<ol><li><strong>Formula（公式法）</strong> (exact)</li><li><strong>Table（表格法）</strong> (organized data)</li><li><strong>Graphical（图示法）</strong> (visual: FC, TC, Revenue lines → intersection = BEP)</li></ol>
+
+<h4>Applications（应用） &amp; Limitations（局限性）</h4>
+<p><strong>Uses:</strong> Marketing (price changes), Operations (new equipment), Location decisions, Price sensitivity.</p>
+<p><strong>Limitations:</strong> Costs/revenues not always linear; semi-variable costs exist; assumes all produced is sold; fixed costs may change.</p>
+
+<hr>
+
+<h3>12.1 Outsourcing（外包）, Insourcing（内包）, Rightsourcing（合理外包）</h3>
+
+<table>
+<tr><th>Term</th><th>Definition</th></tr>
+<tr><td><strong>Outsourcing（外包）</strong></td><td>Strategic use of outside resources for activities traditionally internal</td></tr>
+<tr><td><strong>Insourcing（内包）</strong></td><td>Bringing previously outsourced activities back in-house</td></tr>
+<tr><td><strong>Rightsourcing（合理外包）</strong></td><td>Careful analysis of what to outsource vs keep — not blanket outsourcing</td></tr>
+</table>
+
+<h4>PwC Outsourcing Model（外包模型） (2×2 Matrix)</h4>
+<table>
+<tr><th></th><th>Strategic</th><th>Non-Strategic</th></tr>
+<tr><td><strong>Competitive</strong></td><td><strong>In-House</strong> (core)</td><td>Grey Area</td></tr>
+<tr><td><strong>Non-Competitive</strong></td><td>Outsource if Possible</td><td><strong>Outsourced Area</strong> (safe)</td></tr>
+</table>
+
+<h4>Outsourcing Failures（外包失败案例）</h4>
+<p>Nike (2001 — inventory problems), Cisco (2000 — $billions obsolete), Apple (1999 — unable to meet demand). Each outsourced manufacturing to focus on R&amp;D/marketing.</p>
+
+<h4>Problems with Outsourcing（外包的问题）</h4>
+<p>Loss of control · Increased cash outflow · Security risks · Over-dependence · Staff morale · Supplier selection difficulties · Slow to react · Management overhead</p>
+
+<hr>
+
+<h3>13.1 CapEx（资本支出）, OpEx（运营支出） &amp; TCO（总拥有成本）</h3>
+
+<table>
+<tr><th></th><th>CapEx</th><th>OpEx</th></tr>
+<tr><td><strong>Definition</strong></td><td>Major equipment with &gt;1 year life</td><td>Day-to-day running costs</td></tr>
+<tr><td><strong>Accounting</strong></td><td><strong>Depreciated（折旧）</strong> over useful life</td><td>Deducted in current P&amp;L</td></tr>
+<tr><td><strong>Examples</strong></td><td>Buildings, vehicles, factory machinery, large IT</td><td>Wages, rent, electricity, advertising</td></tr>
+</table>
+
+<h4><h4>TCO（总拥有成本） (Total Cost of Ownership)</h4></h4>
+<p><strong>Obvious costs（明显成本）:</strong> Purchase, installation, labor, utilities, consumables, maintenance, calibration, repair.</p>
+<p><strong>Less obvious（不明显成本）:</strong> Pre-purchase analysis, tendering, facility prep, floor space, training, decommission, removal, disposal.</p>
+
+<div class="formula-block">
+<div class="label">Present Value (for TCO)</div>
+$$PV = \frac{V_n}{(1 + r)^n}$$
+</div>
+
+<h3>13.2 Discounted Cash Flow (DCF)（折现现金流）</h3>
+<p><strong>Time Value of Money（货币时间价值）:</strong> £1 today &gt; £1 promised in the future — due to inflation, currency depreciation, and psychological preference.</p>
+<p><strong>Price（价格） = Cost（成本） + Profit（利润）</strong> (careful about pre-tax/post-tax).</p>
+
+<h4>DCF Formulas（DCF公式）</h4>
+<div class="grid2">
+<div class="formula-block">
+<div class="label">Single Payment — Compounding（复利）</div>
+$$F = P(1 + r)^n$$
+</div>
+<div class="formula-block">
+<div class="label">Single Payment — Discounting（折现）</div>
+$$P = \frac{F}{(1 + r)^n}$$
+</div>
+</div>
+<div class="formula-block">
+<div class="label">Multiple Payments — Present Value（多笔支付现值）</div>
+$$PV = \sum_{i=1}^{n} \frac{V_i}{(1 + r)^i}$$
+</div>
+<div class="formula-block">
+<div class="label">Net Present Value（净现值）</div>
+$$NPV = PV_b - PV_c$$
+</div>
+<div class="grid2">
+<div class="formula-block">
+<div class="label">Benefit/Cost Ratio（收益成本比）</div>
+$$B/C = \frac{NPV_b}{NPV_c} \qquad (\text{>1 → worth considering})$$
+</div>
+<div class="formula-block">
+<div class="label">Internal Rate of Return（内部收益率）</div>
+$$\sum_{i=1}^{n} \frac{V_i}{(1 + IRR)^i} = 0$$
+</div>
+</div>
+<div class="formula-block">
+<div class="label">Equal Payment Series（等额支付系列）</div>
+$$F = A\frac{(1+i)^n - 1}{i}$$
+</div>
+
+<h4>DCF Analysis Steps（DCF分析步骤）</h4>
+<ol>
+  <li>Determine project lifetime (phone: 9–12mo, TV: 2yr, car: 5yr, power station: 50yr)</li>
+  <li>Identify all cash flows (CapEx, OpEx, revenues) by year</li>
+  <li>Select discount rate</li>
+  <li>Calculate PV of each cash flow</li>
+  <li>Sum to get NPV</li>
+  <li>Calculate B/C ratio or IRR</li>
+</ol>
+
+<blockquote><strong>🔥 Equivalent cash flows are equivalent at any common point in time.</strong> Equivalence depends on interest rate — you cannot compare amounts at different times without it.</blockquote>
+
+<!-- PART 4 -->
+<h2 id="l-pt4">Part 4: Company（公司） &amp; Strategy（战略）</h2>
+
+<h3>14.1 Company Types（公司类型）</h3>
+<table>
+<tr><th>Type</th><th>Key Feature</th></tr>
+<tr><td><strong>Sole Trader（个体经营者）</strong></td><td>Simplest; you are PERSONALLY responsible for all losses</td></tr>
+<tr><td><strong>Limited Company（有限公司）</strong></td><td>Finances separate from personal; shareholders' liability limited to unpaid shares</td></tr>
+<tr><td><strong>Business Partnership（合伙企业）</strong></td><td>Partners share responsibility; LLP limits personal liability</td></tr>
+<tr><td><strong>PLC（公众有限公司）</strong></td><td>Shares traded publicly on stock market</td></tr>
+</table>
+
+<h4><h4>Valuation（估值） &amp; Share Dilution（股份稀释）</h4></h4>
+<ul>
+  <li>On formation day: Valuation = Sum of founder investments</li>
+  <li>Value grows through: IP creation, asset acquisition, sale of services</li>
+  <li><strong>Market Capitalisation（市值）</strong> = Number of Shares × Share Price (opinion-based, can change overnight)</li>
+  <li><strong>Share Dilution（股份稀释）:</strong> New investment increases total shares → original owners' percentage decreases. <strong>Raising share price based on new valuation reduces dilution.</strong></li>
+</ul>
+
+<hr>
+
+<h3>15.1 Company Structure（公司结构）</h3>
+
+<h4>Greiner's 5 Growth Stages（格雷纳五阶段成长模型）</h4>
+<table>
+<tr><th>Stage</th><th>Growth Through</th><th>Crisis</th></tr>
+<tr><td>1</td><td>Creativity</td><td>Need for Leadership</td></tr>
+<tr><td>2</td><td>Direction</td><td>Need for Autonomy</td></tr>
+<tr><td>3</td><td>Delegation</td><td>Need for Coordination</td></tr>
+<tr><td>4</td><td>Coordination</td><td>Need for Collaboration</td></tr>
+<tr><td>5</td><td>Collaboration</td><td>Need to manage Complexity</td></tr>
+</table>
+
+<h4>Four Organisational Strategy Types（四种组织战略类型）</h4></h4>
+<table>
+<tr><th>Type</th><th>Focus</th><th>Structure</th></tr>
+<tr><td><strong>Defenders（防御者）</strong></td><td>Efficiency &amp; stability</td><td>Formal, centralized, controlled</td></tr>
+<tr><td><strong>Prospectors（探索者）</strong></td><td>Innovation &amp; change</td><td>Flexible, informal, decentralized</td></tr>
+<tr><td><strong>Analyzers（分析者）</strong></td><td>Balance risk &amp; profit</td><td>Mixed / matrix structure</td></tr>
+<tr><td><strong>Reactors（反应者）</strong></td><td>No clear strategy</td><td>Confused, unstable ("headless chicken")</td></tr>
+</table>
+
+<h4>Main Structures（主要结构）</h4>
+<ul>
+  <li><strong>Simple Start-up（简单初创结构）:</strong> Wide span of control around entrepreneur, highly centralized</li>
+  <li><strong>Divisional（分部结构）:</strong> Autonomous divisions by product/customer/geography; decentralized decision-making</li>
+  <li><strong>Matrix（矩阵结构）:</strong> Each member reports to TWO supervisors; integrates functional + product responsibilities</li>
+  <li><strong>Team-Based（团队结构）:</strong> Built around cross-functional teams, not rigid hierarchies</li>
+</ul>
+<blockquote><strong>🔥 Organisational structure SHOULD NOT be static.</strong> Strategy-structure fit is dynamic (Chandler, 1962).</blockquote>
+
+<hr>
+
+<h3>16.1 Company Strategy（公司战略）</h3>
+
+<p><strong>Strategy（战略） ≠ Vision（愿景）, Mission（使命）, Goals（目标）, Priorities（优先级）, Plans（计划）.</strong><br>
+Strategy（战略） = Long-term advantage（长期优势） + Resource alignment（资源配置）.</p>
+
+<blockquote>"Know yourself and know your enemy, and you will never be defeated." — Sun Tzu, <em>The Art of War</em></blockquote>
+
+<h4>Three Fundamental Questions（三个基本问题） (Ken Favaro, Booz &amp; Company)</h4>
+<ol>
+  <li><strong>Who is the target customer?（谁是目标客户？）</strong></li>
+  <li><strong>What is the value proposition to that customer?（对该客户的价值主张是什么？）</strong></li>
+  <li><strong>What are the essential capabilities needed to deliver that value proposition?（交付该价值主张所需的关键能力是什么？）</strong></li>
+</ol>
+<p>Without clear and coherent answers, you don't have a strategy.</p>
+
+<h4>Strategy Levels Within a Company（公司内战略层次）</h4>
+<p>Product · Technology · Sales &amp; Marketing · Manufacturing · Business Unit — all must fit together like a jigsaw. An effective organisation can only have ONE overall strategy.</p>
+
+<h4>Technology Strategy（技术战略） — Key Decisions</h4>
+<ul>
+  <li>Leader or Follower?</li>
+  <li>Value of being first?</li>
+  <li>Which technology is important?</li>
+  <li>Do you need to own ALL technology?</li>
+  <li>IP Strategy: Own differentiating IP; license less important technology</li>
+</ul>
+
+<h3>16.2 Engineering Career Paths（工程职业路径）</h3>
+<ol>
+  <li><strong>Professional Engineer in Industry（行业专业工程师）</strong></li></strong> — Semiconductors, Software, Automotive, Aerospace, Medical…</li>
+  <li><strong>Academic Engineer（学术工程师）</strong></li></strong> — Publish papers, discover limitations, highly competitive</li>
+  <li><strong>Use Engineering Degree in Another Career（工程学位转行）</strong></li></strong> — Engineers are among the most mathematically skilled professionals</li>
+  <li><strong>Do Something Completely Different（完全不同的领域）</strong></li></strong> — Engineering training has value everywhere</li>
+</ol>
+
+<h4>FYP (Final Year Project)（毕业设计） Advice</h4>
+<ul>
+  <li>Choose something that <strong>genuinely interests you</strong></li>
+  <li>Play to your strengths</li>
+  <li>Can be a powerful job interview tool — prepare a 3-slide summary</li>
+</ul>
+
+<!-- APPENDIX -->
+<h2 id="l-app">Appendix（附录）: All Formulas（全部公式）</h2>
+
+<div class="card">
+<h3>Project Selection &amp; Evaluation</h3>
+<div class="formula-block"><div class="label">Present Value</div>$$PV = \frac{FV}{(1+r)^n}$$</div>
+<div class="formula-block"><div class="label">Benefit Cost Ratio</div>$$BCR = \frac{\text{Benefits}}{\text{Costs}}$$</div>
+<div class="formula-block"><div class="label">Net Present Value</div>$$NPV = PV_b - PV_c$$</div>
+</div>
+
+<div class="card">
+<h3>Estimating &amp; Scheduling</h3>
+<div class="grid2">
+<div class="formula-block"><div class="label">Triangular PERT</div>$$E = \frac{O+M+P}{3}$$</div>
+<div class="formula-block"><div class="label">Beta PERT</div>$$E = \frac{O+4M+P}{6}$$</div>
+</div>
+<div class="formula-block"><div class="label">Standard Deviation</div>$$\sigma = \frac{P-O}{6}$$</div>
+<div class="formula-block"><div class="label">Total Float</div>$$\text{Float} = LF - EF = LS - ES$$</div>
+</div>
+
+<div class="card">
+<h3>Earned Value Analysis</h3>
+<div class="grid2">
+<div class="formula-block"><div class="label">Schedule Variance</div>$$SV = EV - PV$$</div>
+<div class="formula-block"><div class="label">Cost Variance</div>$$CV = EV - AC$$</div>
+<div class="formula-block"><div class="label">Schedule Performance Index</div>$$SPI = \frac{EV}{PV}$$</div>
+<div class="formula-block"><div class="label">Cost Performance Index</div>$$CPI = \frac{EV}{AC}$$</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Communications &amp; Risk</h3>
+<div class="grid2">
+<div class="formula-block"><div class="label">Communication Channels</div>$$\frac{n(n-1)}{2}$$</div>
+<div class="formula-block"><div class="label">Expected Monetary Value</div>$$EMV = \sum(P_i \times I_i)$$</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Quality &amp; Process Capability</h3>
+<div class="formula-block"><div class="label">Control Limits</div>$$UCL = \bar{X} + A\hat{\sigma} \qquad LCL = \bar{X} - A\hat{\sigma}$$</div>
+<div class="formula-block"><div class="label">Taguchi Loss Function</div>$$L(y) = k(y-m)^2 \qquad k = A_0 / \Delta_0^2$$</div>
+<div class="formula-block"><div class="label">Average Quality Loss (large n)</div>$$Q = k[(\mu-m)^2 + \sigma^2]$$</div>
+<div class="grid2">
+<div class="formula-block"><div class="label">Cp (Potential)</div>$$Cp = \frac{USL-LSL}{6\sigma}$$</div>
+<div class="formula-block"><div class="label">Cpk (Actual)</div>$$Cpk = \min\left(\frac{USL-\mu}{3\sigma}, \frac{\mu-LSL}{3\sigma}\right)$$</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Engineering Economics</h3>
+<div class="formula-block"><div class="label">Break-Even Point</div>$$BEP = \frac{FC}{SP - VC}$$</div>
+<div class="grid2">
+<div class="formula-block"><div class="label">Compounding</div>$$F = P(1+r)^n$$</div>
+<div class="formula-block"><div class="label">Discounting</div>$$P = \frac{F}{(1+r)^n}$$</div>
+</div>
+<div class="formula-block"><div class="label">Equal Payment Series</div>$$F = A\frac{(1+i)^n - 1}{i}$$</div>
+<div class="formula-block"><div class="label">Multiple Payments PV</div>$$PV = \sum_{i=1}^{n}\frac{V_i}{(1+r)^i}$$</div>
+</div>
+
+</div><!-- /tab-learning -->
+
+<!-- ================================================================ -->
+<!-- REVISION TAB                                                      -->
+<!-- ================================================================ -->
+<div id="tab-revision" class="tab-content">
+
+<h1>EPMF — 考前复习手册（Revision Guide）</h1>
+<p class="meta"><strong>速查 · 公式 · 关键概念 · 易错点</strong> · Based on PMBOK® Guide</p>
+
+<div class="card">
+<h2 style="margin-top:0">🧮 MASTER FORMULA SHEET（公式速查表）</h2>
+
+<h3>Project Selection &amp; Evaluation</h3>
+<table>
+<tr><th>Formula</th><th>Name</th></tr>
+<tr><td>$PV = \frac{FV}{(1+r)^n}$</td><td>Present Value</td></tr>
+<tr><td>$BCR = \frac{Benefits}{Costs}$</td><td>Benefit Cost Ratio (&gt;1 = worth)</td></tr>
+<tr><td>$NPV = PV_b - PV_c$</td><td>Net Present Value</td></tr>
+<tr><td>$\sum\frac{V_i}{(1+IRR)^i} = 0$</td><td>Internal Rate of Return</td></tr>
+</table>
+
+<h3>Estimating &amp; Scheduling</h3>
+<table>
+<tr><th>Formula</th><th>Name</th></tr>
+<tr><td>$E = \frac{O+M+P}{3}$</td><td>Triangular PERT</td></tr>
+<tr><td><strong>$E = \frac{O+4M+P}{6}$</strong></td><td><strong>Beta PERT (exam default!)</strong></td></tr>
+<tr><td>$\sigma = \frac{P-O}{6}$</td><td>Standard Deviation</td></tr>
+<tr><td>$LF - EF = LS - ES$</td><td>Total Float (critical path = 0)</td></tr>
+<tr><td>$\frac{n(n-1)}{2}$</td><td>Communication Channels</td></tr>
+</table>
+
+<h3>Earned Value Analysis (EVA)</h3>
+<table>
+<tr><th>Formula</th><th>&gt;0 / &gt;1 means…</th></tr>
+<tr><td>$SV = EV - PV$</td><td>Ahead of schedule</td></tr>
+<tr><td>$CV = EV - AC$</td><td>Under budget</td></tr>
+<tr><td>$SPI = \frac{EV}{PV}$</td><td>Ahead of schedule</td></tr>
+<tr><td>$CPI = \frac{EV}{AC}$</td><td>Under budget (good!)</td></tr>
+<tr><td>$EMV = \sum(P_i \times I_i)$</td><td>Expected Monetary Value</td></tr>
+</table>
+
+<h3>Quality &amp; Process Capability</h3>
+<table>
+<tr><th>Formula</th><th>Name</th></tr>
+<tr><td>$UCL = \bar{X} + A\hat{\sigma}$, $LCL = \bar{X} - A\hat{\sigma}$</td><td>Control Limits</td></tr>
+<tr><td>$L(y) = k(y-m)^2$, $k = A_0/\Delta_0^2$</td><td>Taguchi Loss Function</td></tr>
+<tr><td>$Q = k[(\mu-m)^2 + \sigma^2]$</td><td>Average Quality Loss (large n)</td></tr>
+<tr><td>$Cp = \frac{USL-LSL}{6\sigma}$</td><td>Process Capability (potential)</td></tr>
+<tr><td>$Cpk = \min(\frac{USL-\mu}{3\sigma}, \frac{\mu-LSL}{3\sigma})$</td><td>Process Capability (actual)</td></tr>
+</table>
+
+<h3>Engineering Economics</h3>
+<table>
+<tr><th>Formula</th><th>Name</th></tr>
+<tr><td>$BEP = \frac{FC}{SP - VC}$</td><td>Break-Even Point</td></tr>
+<tr><td>$Q = \frac{FC + Target}{SP - VC}$</td><td>Target Profit Output</td></tr>
+<tr><td>$\text{Margin} = \text{Current} - \text{BEP}$</td><td>Margin of Safety</td></tr>
+<tr><td>$F = P(1+r)^n$</td><td>Compound Interest</td></tr>
+<tr><td>$P = \frac{F}{(1+r)^n}$</td><td>Discounting</td></tr>
+<tr><td>$PV = \sum\frac{V_i}{(1+r)^i}$</td><td>Multiple Payments PV</td></tr>
+<tr><td>$F = A\frac{(1+i)^n-1}{i}$</td><td>Equal Payment Series</td></tr>
+</table>
+</div>
+
+<h2>📋 Quick Reference Tables（速查表）</h2>
+
+<h3>5 Process Groups（五大过程组）</h3>
+<table>
+<tr><th>#</th><th>Group</th><th>Keyword</th></tr>
+<tr><td>1</td><td>Initiating</td><td>Charter, Sponsor</td></tr>
+<tr><td>2</td><td>Planning</td><td>Progressive Elaboration</td></tr>
+<tr><td>3</td><td><strong>Executing</strong></td><td><span class="fire">Most resources consumed</span></td></tr>
+<tr><td>4</td><td>Monitoring &amp; Controlling</td><td>Only approved changes</td></tr>
+<tr><td>5</td><td>Closing</td><td>Lessons Learned</td></tr>
+</table>
+
+<h3>Knowledge Areas — Process Counts（知识领域-过程数）</h3>
+<table>
+<tr><th>Knowledge Area</th><th>#</th><th>Process Mnemonic</th></tr>
+<tr><td><strong>Scope（范围）</strong></td><td>6</td><td>Plan → Collect → Define → WBS → Validate → Control</td></tr>
+<tr><td><strong>Schedule（进度）</strong></td><td>6</td><td>Plan → Define → Sequence → Estimate → Develop → Control</td></tr>
+<tr><td><strong>Cost（成本）</strong></td><td>4</td><td>Plan → Estimate → Budget → Control</td></tr>
+<tr><td><strong>Resource（资源）</strong></td><td>6</td><td>Plan → Estimate → Acquire → Develop → Manage → Control</td></tr>
+<tr><td><strong>Communications（沟通）</strong></td><td>3</td><td>Plan → Manage → Monitor</td></tr>
+<tr><td><strong>Risk（风险）</strong></td><td>7</td><td>Plan → Identify → Qual → Quant → PlanResp → Implement → Monitor</td></tr>
+</table>
+
+<h3>RACI（责任分配矩阵）</h3>
+<table>
+<tr><td><strong>R</strong>esponsible（执行）</td><td>Does the work</td></tr>
+<tr><td><strong>A</strong>ccountable（负责）</td><td>Final decision (<span class="fire">only ONE per task</span>)</td></tr>
+<tr><td><strong>C</strong>onsulted（咨询）</td><td>Asked before decision</td></tr>
+<tr><td><strong>I</strong>nformed（知情）</td><td>Told after decision</td></tr>
+</table>
+
+<h3>Tuckman's 5 Stages（塔克曼5阶段）</h3>
+<p><strong>Forming → Storming → Norming → Performing → Adjourning</strong></p>
+<p><span class="fire">Storming = critical phase (conflicts, teams fail or succeed here)</span></p>
+
+<h3>Conflict Resolution — 5 Techniques（冲突解决-5种技术）</h3>
+<table>
+<tr><th>Technique</th><th>Winner</th></tr>
+<tr><td>Avoiding（回避）</td><td>Nobody</td></tr>
+<tr><td>Accommodating（迁就）</td><td>Other party</td></tr>
+<tr><td>Compromising（妥协）</td><td>Both partially</td></tr>
+<tr><td>Competing（竞争）</td><td>You</td></tr>
+<tr><td><strong>Collaborating（合作）</strong></td><td><strong>Both (BEST!)</strong></td></tr>
+</table>
+
+<h3>Communication Methods（沟通方法）</h3>
+<table>
+<tr><th>Method</th><th>Nature</th></tr>
+<tr><td><strong>Interactive</strong></td><td>Two-way, real-time (meetings, calls)</td></tr>
+<tr><td><strong>Push</strong></td><td>Sent; no guarantee (email, reports)</td></tr>
+<tr><td><strong>Pull</strong></td><td>Recipients access (web portals) — <span class="fire">best for large audiences</span></td></tr>
+</table>
+
+<h3>Risk Response Strategies（风险应对策略）</h3>
+<div class="grid2">
+<table>
+<tr><th>Threats（威胁） (Negative)</th></tr>
+<tr><td>Escalate · <strong>Avoid</strong> · Transfer · Mitigate · Accept</td></tr>
+</table>
+<table>
+<tr><th>Opportunities（机会） (Positive)</th></tr>
+<tr><td>Escalate · <strong>Exploit</strong> · Share · Enhance · Accept</td></tr>
+</table>
+</div>
+
+<h3>DFM — 6 Principles（DFM六大原则）</h3>
+<p>Simplicity · Standardization · Tolerance · Material Selection · Automation · Process Integration</p>
+
+<h3>7-QC Tools（七大QC工具）</h3>
+<p>Flowchart · Check Sheet · <strong>Fishbone</strong> · <strong>Pareto</strong> · <strong>Control Chart</strong> · Histogram · Scatter</p>
+
+<h3>COQ — 4 Categories（质量成本-4类）</h3>
+<p>Prevention → Appraisal → Internal Failure → <span class="fire">External Failure (WORST)</span></p>
+
+<h3>Taguchi — 3 Quality Characteristics（田口-3类质量特性）</h3>
+<p>Nominal-the-best · Smaller-the-better · Larger-the-better</p>
+
+<h3>DMAIC（六西格玛五阶段）</h3>
+<p><strong>D</strong>efine → <strong>M</strong>easure → <strong>A</strong>nalyze → <strong>I</strong>mprove → <strong>C</strong>ontrol</p>
+
+<h3>Cpk Risk Levels（Cpk风险等级）</h3>
+<table>
+<tr><th>Cpk</th><th>Risk</th></tr>
+<tr><td>&lt; 1.00</td><td>High (not capable)</td></tr>
+<tr><td>1.00–1.33</td><td>Moderate</td></tr>
+<tr><td>1.33–1.67</td><td>Low (capable)</td></tr>
+<tr><td>≥ 1.67</td><td>Minimal (highly capable) — <span class="fire">aim for ≥2.00</span></td></tr>
+</table>
+
+<h3>P&amp;L Structure（损益表结构）</h3>
+<p style="font-family:monospace">Sales → Gross Profit → EBITDA → Net Income</p>
+
+<h3>Greiner's 5 Stages（格雷纳5阶段）</h3>
+<p>Creativity → Direction → Delegation → Coordination → Collaboration</p>
+
+<h3>4 Strategy Types（四种战略类型）</h3>
+<table>
+<tr><td><strong>Defenders（防御者）</strong></td><td>Efficiency, stability</td></tr>
+<tr><td><strong>Prospectors（探索者）</strong></td><td>Innovation, change</td></tr>
+<tr><td><strong>Analyzers（分析者）</strong></td><td>Balance risk &amp; profit</td></tr>
+<tr><td><strong>Reactors（反应者）</strong></td><td>No clear strategy ("headless chicken")</td></tr>
+</table>
+
+<hr>
+
+<h2>🚨 HIGH-FREQUENCY EXAM TRAPS（高频易错点）</h2>
+
+<ol style="line-height:2">
+<li>PM spends <strong>~90%</strong> of time communicating</li>
+<li>PM does <strong>NOT</strong> authorize business case → <strong>Sponsor</strong> does</li>
+<li>Standards = optional; Regulations = mandatory</li>
+<li>WBS = Work Breakdown <strong>Structure</strong> (NOT Statement)</li>
+<li>Cost baseline includes <strong>contingency</strong>, NOT management reserve</li>
+<li>Cost baseline is output of <strong>Determine Budget</strong></li>
+<li>Max cost at <strong>Executing</strong>, NOT Initiating</li>
+<li>CPI &gt; 1 = <strong>under budget</strong> (good); SPI &lt; 1 = behind schedule</li>
+<li><strong>Collaborating</strong> = best conflict resolution</li>
+<li>SWOT used in <strong>Identify Risks</strong></li>
+<li>Probability &amp; Impact Matrix used in <strong>Qualitative Risk Analysis</strong></li>
+<li><strong>Quantitative analysis NOT required for every project</strong></li>
+<li>After Identify Risks → next is <strong>Qualitative</strong> (NOT Quantitative!)</li>
+<li>DFM most effective at <strong>initial design stage</strong></li>
+<li>3 Pillars: Economic + Environmental + Social (NOT Technological!)</li>
+<li>4Rs: Reduce, Reuse, Repair, Recycle (NOT Replace!)</li>
+<li>DMAIC: NOT Calibrate</li>
+<li>Pareto = 80/20 rule</li>
+<li>External failure costs = WORST type of quality cost</li>
+<li>Equipment upgrades = <strong>Prevention</strong> cost (NOT Appraisal)</li>
+<li>Taguchi types: NOT "Target-the-zero"</li>
+<li>BCR ≤ 1 = not worth it (unless intangible benefits exist)</li>
+<li>Opportunity cost can flip Make-or-Buy decision</li>
+<li>Strategy ≠ Vision / Mission / Goals / Plans</li>
+<li>Structure should NOT be static — Strategy-Structure Fit is dynamic</li>
+<li><strong>Equivalent cash flows are equivalent at any common point in time</strong> — equivalence depends on interest rate</li>
+</ol>
+
+<hr>
+
+<h2>🎯 SELF-TEST（自测20题） (20 Quick Questions)</h2>
+
+<ol style="line-height:2.2">
+<li>PV formula? → <code>FV/(1+r)^n</code></li>
+<li>Beta PERT formula? → <code>(O+4M+P)/6</code></li>
+<li>Communication channels (7 people)? → <code>7×6/2 = 21</code></li>
+<li>SV = ? → <code>EV – PV</code></li>
+<li>CV = ? → <code>EV – AC</code></li>
+<li>CPI &gt; 1 means? → Under budget</li>
+<li>EMV formula? → <code>Σ(P×I)</code></li>
+<li>BEP formula? → <code>FC/(SP–VC)</code></li>
+<li>Taguchi Loss? → <code>k(y–m)²</code></li>
+<li>Cp formula? → <code>(USL–LSL)/6σ</code></li>
+<li>Cpk formula? → <code>min((USL–μ)/3σ, (μ–LSL)/3σ)</code></li>
+<li>5 conflict techniques? → Avoid/Accommodate/Compromise/Compete/Collaborate</li>
+<li>Tuckman 5 stages? → Forming/Storming/Norming/Performing/Adjourning</li>
+<li>7 risk processes? → Plan/Identify/Qual/Quant/PlanResp/Implement/Monitor</li>
+<li>6 scope processes? → Plan/Collect/Define/WBS/Validate/Control</li>
+<li>4 cost processes? → Plan/Estimate/Budget/Control</li>
+<li>DMAIC phases? → Define/Measure/Analyze/Improve/Control</li>
+<li>DFM 6 principles? → Simplicity/Standardization/Tolerance/Material/Automation/Integration</li>
+<li>What is CTQ? → Critical-to-Quality — elements significantly affecting process output</li>
+<li>NPV vs IRR? → NPV = PV benefits – PV costs; IRR = rate where NPV = 0</li>
+</ol>
+
+</div><!-- /tab-revision -->
+
+</div><!-- /container -->
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('nav .tabs button').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('nav .tabs button[onclick*="' + name + '"]').classList.add('active');
+  if (typeof MathJax !== 'undefined') MathJax.typesetPromise();
+}
+</script>
+
+</body>
+</html>
