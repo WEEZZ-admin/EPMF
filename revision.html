@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPMF — Revision Guide</title>
+<script>
+MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{
+  --bg:#f8f9fa;--card:#fff;--text:#212529;--muted:#6c757d;
+  --accent:#2563eb;--accent2:#0891b2;--border:#dee2e6;
+  --tag-bg:#e8f0fe;--tag-fg:#1a56db;
+  --warn-bg:#fff3cd;--warn-fg:#856404;--warn-border:#ffc107;
+  --good-bg:#d1fae5;--good-fg:#065f46;
+  --red:#dc2626;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+nav{position:sticky;top:0;z-index:100;background:var(--card);border-bottom:2px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;gap:0;backdrop-filter:blur(12px)}
+nav .brand{font-weight:800;font-size:1.05rem;white-space:nowrap;padding:0.8rem 0;color:var(--accent);letter-spacing:-0.01em}
+nav .tabs{display:flex;margin-left:2rem;gap:0}
+nav .tabs a{background:none;border:none;font-size:0.9rem;font-weight:600;padding:0.8rem 1.2rem;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;transition:all .15s;font-family:inherit;text-decoration:none}
+nav .tabs a:hover{color:var(--text)}
+nav .tabs a.active{color:var(--accent);border-bottom-color:var(--accent)}
+nav .right{margin-left:auto;display:flex;align-items:center;gap:0.8rem;font-size:0.82rem;color:var(--muted)}
+.container{max-width:960px;margin:0 auto;padding:2rem 1.5rem 4rem}
+h1{font-size:2rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.02em}
+h2{font-size:1.5rem;font-weight:700;margin:2.5rem 0 1rem;padding-bottom:0.4rem;border-bottom:2px solid var(--border);color:var(--accent)}
+h3{font-size:1.2rem;font-weight:700;margin:1.8rem 0 0.7rem;color:var(--accent2)}
+h4{font-size:1.05rem;font-weight:700;margin:1.2rem 0 0.5rem;color:#374151}
+p{margin-bottom:0.8rem}
+a{color:var(--accent)}
+strong{color:#111827}
+em{color:var(--muted)}
+ul,ol{margin:0.5rem 0 1rem 1.5rem}
+li{margin-bottom:0.25rem}
+code{background:#f1f5f9;padding:0.15em 0.4em;border-radius:4px;font-size:0.9em;font-family:'JetBrains Mono','Fira Code',Consolas,monospace}
+pre{background:#1e293b;color:#e2e8f0;padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;margin:0.8rem 0;font-size:0.88rem;line-height:1.6}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.9rem}
+th,td{padding:0.55rem 0.75rem;text-align:left;border:1px solid var(--border)}
+th{background:#f1f5f9;font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.03em}
+tr:nth-child(even){background:#fafbfc}
+blockquote{background:var(--warn-bg);border-left:4px solid var(--warn-border);padding:0.6rem 1rem;margin:1rem 0;border-radius:0 6px 6px 0;color:var(--warn-fg);font-size:0.93rem}
+blockquote strong{color:var(--warn-fg)}
+hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
+.tag{display:inline-block;background:var(--tag-bg);color:var(--tag-fg);font-size:0.75rem;font-weight:700;padding:0.15em 0.55em;border-radius:4px;margin-right:0.3em}
+.fire{color:var(--red);font-weight:700}
+.formula-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.5rem;margin:1rem 0;text-align:center;overflow-x:auto}
+.formula-block .label{display:block;font-size:0.8rem;color:var(--muted);margin-bottom:0.3rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.meta{font-size:0.85rem;color:var(--muted);margin-bottom:2rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.5rem;margin:1rem 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.5rem;margin-bottom:2rem}
+.toc ol{padding-left:1.2rem}
+.toc li{margin-bottom:0.3rem}
+@media print{
+  body{background:#fff;font-size:11pt}
+  nav{display:none}
+  .container{max-width:100%;padding:0}
+  h2{page-break-before:always}
+  h2:first-of-type{page-break-before:avoid}
+  table{font-size:9pt}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">📘 EPMF Guide</span>
+  <div class="tabs">
+    <a href="index.html">🏠 Home</a>
+    <a href="learning.html">📖 Learning</a>
+    <a href="revision.html" class="active">📝 Revision</a>
+    <a href="slides.html">📄 Slides</a>
+  </div>
+  <div class="right">UESTC 3031 &amp; UESTCHN 3012</div>
+</nav>
+
+<div class="container">
+
+<h1>EPMF — 考前复习手册（Revision Guide）</h1>
+<p class="meta"><strong>速查 · 公式 · 关键概念 · 易错点</strong> · Based on PMBOK® Guide</p>
+
+<div class="card">
+<h2 style="margin-top:0">🧮 MASTER FORMULA SHEET（公式速查表）</h2>
+
+<h3>Project Selection &amp; Evaluation</h3>
+<table>
+<tr><th>Formula</th><th>Name</th></tr>
+<tr><td>$PV = \frac{FV}{(1+r)^n}$</td><td>Present Value</td></tr>
+<tr><td>$BCR = \frac{Benefits}{Costs}$</td><td>Benefit Cost Ratio (&gt;1 = worth)</td></tr>
+<tr><td>$NPV = PV_b - PV_c$</td><td>Net Present Value</td></tr>
+<tr><td>$\sum\frac{V_i}{(1+IRR)^i} = 0$</td><td>Internal Rate of Return</td></tr>
+</table>
+
+<h3>Estimating &amp; Scheduling</h3>
+<table>
+<tr><th>Formula</th><th>Name</th></tr>
+<tr><td>$E = \frac{O+M+P}{3}$</td><td>Triangular PERT</td></tr>
+<tr><td><strong>$E = \frac{O+4M+P}{6}$</strong></td><td><strong>Beta PERT (exam default!)</strong></td></tr>
+<tr><td>$\sigma = \frac{P-O}{6}$</td><td>Standard Deviation</td></tr>
+<tr><td>$LF - EF = LS - ES$</td><td>Total Float (critical path = 0)</td></tr>
+<tr><td>$\frac{n(n-1)}{2}$</td><td>Communication Channels</td></tr>
+</table>
+
+<h3>Earned Value Analysis (EVA)</h3>
+<table>
+<tr><th>Formula</th><th>&gt;0 / &gt;1 means…</th></tr>
+<tr><td>$SV = EV - PV$</td><td>Ahead of schedule</td></tr>
+<tr><td>$CV = EV - AC$</td><td>Under budget</td></tr>
+<tr><td>$SPI = \frac{EV}{PV}$</td><td>Ahead of schedule</td></tr>
+<tr><td>$CPI = \frac{EV}{AC}$</td><td>Under budget (good!)</td></tr>
+<tr><td>$EMV = \sum(P_i \times I_i)$</td><td>Expected Monetary Value</td></tr>
+</table>
+
+<h3>Quality &amp; Process Capability</h3>
+<table>
+<tr><th>Formula</th><th>Name</th></tr>
+<tr><td>$UCL = \bar{X} + A\hat{\sigma}$, $LCL = \bar{X} - A\hat{\sigma}$</td><td>Control Limits</td></tr>
+<tr><td>$L(y) = k(y-m)^2$, $k = A_0/\Delta_0^2$</td><td>Taguchi Loss Function</td></tr>
+<tr><td>$Q = k[(\mu-m)^2 + \sigma^2]$</td><td>Average Quality Loss (large n)</td></tr>
+<tr><td>$Cp = \frac{USL-LSL}{6\sigma}$</td><td>Process Capability (potential)</td></tr>
+<tr><td>$Cpk = \min(\frac{USL-\mu}{3\sigma}, \frac{\mu-LSL}{3\sigma})$</td><td>Process Capability (actual)</td></tr>
+</table>
+
+<h3>Engineering Economics</h3>
+<table>
+<tr><th>Formula</th><th>Name</th></tr>
+<tr><td>$BEP = \frac{FC}{SP - VC}$</td><td>Break-Even Point</td></tr>
+<tr><td>$Q = \frac{FC + Target}{SP - VC}$</td><td>Target Profit Output</td></tr>
+<tr><td>$\text{Margin} = \text{Current} - \text{BEP}$</td><td>Margin of Safety</td></tr>
+<tr><td>$F = P(1+r)^n$</td><td>Compound Interest</td></tr>
+<tr><td>$P = \frac{F}{(1+r)^n}$</td><td>Discounting</td></tr>
+<tr><td>$PV = \sum\frac{V_i}{(1+r)^i}$</td><td>Multiple Payments PV</td></tr>
+<tr><td>$F = A\frac{(1+i)^n-1}{i}$</td><td>Equal Payment Series</td></tr>
+</table>
+</div>
+
+<h2>📋 Quick Reference Tables（速查表）</h2>
+
+<h3>5 Process Groups（五大过程组）</h3>
+<table>
+<tr><th>#</th><th>Group</th><th>Keyword</th></tr>
+<tr><td>1</td><td>Initiating</td><td>Charter, Sponsor</td></tr>
+<tr><td>2</td><td>Planning</td><td>Progressive Elaboration</td></tr>
+<tr><td>3</td><td><strong>Executing</strong></td><td><span class="fire">Most resources consumed</span></td></tr>
+<tr><td>4</td><td>Monitoring &amp; Controlling</td><td>Only approved changes</td></tr>
+<tr><td>5</td><td>Closing</td><td>Lessons Learned</td></tr>
+</table>
+
+<h3>Knowledge Areas — Process Counts（知识领域-过程数）</h3>
+<table>
+<tr><th>Knowledge Area</th><th>#</th><th>Process Mnemonic</th></tr>
+<tr><td><strong>Scope（范围）</strong></td><td>6</td><td>Plan → Collect → Define → WBS → Validate → Control</td></tr>
+<tr><td><strong>Schedule（进度）</strong></td><td>6</td><td>Plan → Define → Sequence → Estimate → Develop → Control</td></tr>
+<tr><td><strong>Cost（成本）</strong></td><td>4</td><td>Plan → Estimate → Budget → Control</td></tr>
+<tr><td><strong>Resource（资源）</strong></td><td>6</td><td>Plan → Estimate → Acquire → Develop → Manage → Control</td></tr>
+<tr><td><strong>Communications（沟通）</strong></td><td>3</td><td>Plan → Manage → Monitor</td></tr>
+<tr><td><strong>Risk（风险）</strong></td><td>7</td><td>Plan → Identify → Qual → Quant → PlanResp → Implement → Monitor</td></tr>
+</table>
+
+<h3>RACI（责任分配矩阵）</h3>
+<table>
+<tr><td><strong>R</strong>esponsible（执行）</td><td>Does the work</td></tr>
+<tr><td><strong>A</strong>ccountable（负责）</td><td>Final decision (<span class="fire">only ONE per task</span>)</td></tr>
+<tr><td><strong>C</strong>onsulted（咨询）</td><td>Asked before decision</td></tr>
+<tr><td><strong>I</strong>nformed（知情）</td><td>Told after decision</td></tr>
+</table>
+
+<h3>Tuckman's 5 Stages（塔克曼5阶段）</h3>
+<p><strong>Forming → Storming → Norming → Performing → Adjourning</strong></p>
+<p><span class="fire">Storming = critical phase (conflicts, teams fail or succeed here)</span></p>
+
+<h3>Conflict Resolution — 5 Techniques（冲突解决-5种技术）</h3>
+<table>
+<tr><th>Technique</th><th>Winner</th></tr>
+<tr><td>Avoiding（回避）</td><td>Nobody</td></tr>
+<tr><td>Accommodating（迁就）</td><td>Other party</td></tr>
+<tr><td>Compromising（妥协）</td><td>Both partially</td></tr>
+<tr><td>Competing（竞争）</td><td>You</td></tr>
+<tr><td><strong>Collaborating（合作）</strong></td><td><strong>Both (BEST!)</strong></td></tr>
+</table>
+
+<h3>Communication Methods（沟通方法）</h3>
+<table>
+<tr><th>Method</th><th>Nature</th></tr>
+<tr><td><strong>Interactive</strong></td><td>Two-way, real-time (meetings, calls)</td></tr>
+<tr><td><strong>Push</strong></td><td>Sent; no guarantee (email, reports)</td></tr>
+<tr><td><strong>Pull</strong></td><td>Recipients access (web portals) — <span class="fire">best for large audiences</span></td></tr>
+</table>
+
+<h3>Risk Response Strategies（风险应对策略）</h3>
+<div class="grid2">
+<table>
+<tr><th>Threats（威胁） (Negative)</th></tr>
+<tr><td>Escalate · <strong>Avoid</strong> · Transfer · Mitigate · Accept</td></tr>
+</table>
+<table>
+<tr><th>Opportunities（机会） (Positive)</th></tr>
+<tr><td>Escalate · <strong>Exploit</strong> · Share · Enhance · Accept</td></tr>
+</table>
+</div>
+
+<h3>DFM — 6 Principles（DFM六大原则）</h3>
+<p>Simplicity · Standardization · Tolerance · Material Selection · Automation · Process Integration</p>
+
+<h3>7-QC Tools（七大QC工具）</h3>
+<p>Flowchart · Check Sheet · <strong>Fishbone</strong> · <strong>Pareto</strong> · <strong>Control Chart</strong> · Histogram · Scatter</p>
+
+<h3>COQ — 4 Categories（质量成本-4类）</h3>
+<p>Prevention → Appraisal → Internal Failure → <span class="fire">External Failure (WORST)</span></p>
+
+<h3>Taguchi — 3 Quality Characteristics（田口-3类质量特性）</h3>
+<p>Nominal-the-best · Smaller-the-better · Larger-the-better</p>
+
+<h3>DMAIC（六西格玛五阶段）</h3>
+<p><strong>D</strong>efine → <strong>M</strong>easure → <strong>A</strong>nalyze → <strong>I</strong>mprove → <strong>C</strong>ontrol</p>
+
+<h3>Cpk Risk Levels（Cpk风险等级）</h3>
+<table>
+<tr><th>Cpk</th><th>Risk</th></tr>
+<tr><td>&lt; 1.00</td><td>High (not capable)</td></tr>
+<tr><td>1.00–1.33</td><td>Moderate</td></tr>
+<tr><td>1.33–1.67</td><td>Low (capable)</td></tr>
+<tr><td>≥ 1.67</td><td>Minimal (highly capable) — <span class="fire">aim for ≥2.00</span></td></tr>
+</table>
+
+<h3>P&amp;L Structure（损益表结构）</h3>
+<p style="font-family:monospace">Sales → Gross Profit → EBITDA → Net Income</p>
+
+<h3>Greiner's 5 Stages（格雷纳5阶段）</h3>
+<p>Creativity → Direction → Delegation → Coordination → Collaboration</p>
+
+<h3>4 Strategy Types（四种战略类型）</h3>
+<table>
+<tr><td><strong>Defenders（防御者）</strong></td><td>Efficiency, stability</td></tr>
+<tr><td><strong>Prospectors（探索者）</strong></td><td>Innovation, change</td></tr>
+<tr><td><strong>Analyzers（分析者）</strong></td><td>Balance risk &amp; profit</td></tr>
+<tr><td><strong>Reactors（反应者）</strong></td><td>No clear strategy ("headless chicken")</td></tr>
+</table>
+
+<hr>
+
+<h2>🚨 HIGH-FREQUENCY EXAM TRAPS（高频易错点）</h2>
+
+<ol style="line-height:2">
+<li>PM spends <strong>~90%</strong> of time communicating</li>
+<li>PM does <strong>NOT</strong> authorize business case → <strong>Sponsor</strong> does</li>
+<li>Standards = optional; Regulations = mandatory</li>
+<li>WBS = Work Breakdown <strong>Structure</strong> (NOT Statement)</li>
+<li>Cost baseline includes <strong>contingency</strong>, NOT management reserve</li>
+<li>Cost baseline is output of <strong>Determine Budget</strong></li>
+<li>Max cost at <strong>Executing</strong>, NOT Initiating</li>
+<li>CPI &gt; 1 = <strong>under budget</strong> (good); SPI &lt; 1 = behind schedule</li>
+<li><strong>Collaborating</strong> = best conflict resolution</li>
+<li>SWOT used in <strong>Identify Risks</strong></li>
+<li>Probability &amp; Impact Matrix used in <strong>Qualitative Risk Analysis</strong></li>
+<li><strong>Quantitative analysis NOT required for every project</strong></li>
+<li>After Identify Risks → next is <strong>Qualitative</strong> (NOT Quantitative!)</li>
+<li>DFM most effective at <strong>initial design stage</strong></li>
+<li>3 Pillars: Economic + Environmental + Social (NOT Technological!)</li>
+<li>4Rs: Reduce, Reuse, Repair, Recycle (NOT Replace!)</li>
+<li>DMAIC: NOT Calibrate</li>
+<li>Pareto = 80/20 rule</li>
+<li>External failure costs = WORST type of quality cost</li>
+<li>Equipment upgrades = <strong>Prevention</strong> cost (NOT Appraisal)</li>
+<li>Taguchi types: NOT "Target-the-zero"</li>
+<li>BCR ≤ 1 = not worth it (unless intangible benefits exist)</li>
+<li>Opportunity cost can flip Make-or-Buy decision</li>
+<li>Strategy ≠ Vision / Mission / Goals / Plans</li>
+<li>Structure should NOT be static — Strategy-Structure Fit is dynamic</li>
+<li><strong>Equivalent cash flows are equivalent at any common point in time</strong> — equivalence depends on interest rate</li>
+</ol>
+
+<hr>
+
+<h2>🎯 SELF-TEST（自测20题） (20 Quick Questions)</h2>
+
+<ol style="line-height:2.2">
+<li>PV formula? → <code>FV/(1+r)^n</code></li>
+<li>Beta PERT formula? → <code>(O+4M+P)/6</code></li>
+<li>Communication channels (7 people)? → <code>7×6/2 = 21</code></li>
+<li>SV = ? → <code>EV – PV</code></li>
+<li>CV = ? → <code>EV – AC</code></li>
+<li>CPI &gt; 1 means? → Under budget</li>
+<li>EMV formula? → <code>Σ(P×I)</code></li>
+<li>BEP formula? → <code>FC/(SP–VC)</code></li>
+<li>Taguchi Loss? → <code>k(y–m)²</code></li>
+<li>Cp formula? → <code>(USL–LSL)/6σ</code></li>
+<li>Cpk formula? → <code>min((USL–μ)/3σ, (μ–LSL)/3σ)</code></li>
+<li>5 conflict techniques? → Avoid/Accommodate/Compromise/Compete/Collaborate</li>
+<li>Tuckman 5 stages? → Forming/Storming/Norming/Performing/Adjourning</li>
+<li>7 risk processes? → Plan/Identify/Qual/Quant/PlanResp/Implement/Monitor</li>
+<li>6 scope processes? → Plan/Collect/Define/WBS/Validate/Control</li>
+<li>4 cost processes? → Plan/Estimate/Budget/Control</li>
+<li>DMAIC phases? → Define/Measure/Analyze/Improve/Control</li>
+<li>DFM 6 principles? → Simplicity/Standardization/Tolerance/Material/Automation/Integration</li>
+<li>What is CTQ? → Critical-to-Quality — elements significantly affecting process output</li>
+<li>NPV vs IRR? → NPV = PV benefits – PV costs; IRR = rate where NPV = 0</li>
+</ol>
+
+</div><!-- /container -->
+
+</body>
+</html>
